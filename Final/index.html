@@ -81,30 +81,31 @@
       <strong><i>Looking at Fig 3-1, Janert writes "the data itself shows clearly that the amount of random noise in the data is small". What do you think his argument is?</i></strong>
 
       <p>
-        if we connect points on the scatter plot we will get a f(x) = abs(sinc(x)) looking function. Random noise is generally cloudy and do have a random nature. However this data seems to not have a random nature. Thus we support Janert's argument.
+        If we connect points on the scatter plot we will get a f(x) = abs(sinc(x)) looking function. Random noise is generally cloudy and has a random nature. However, this data does not seem to have a random nature. Thus, we support Janert's argument.
       </p>
 
-      <strong><i> Can you think of a real-world example of a multivariate relationship like the one in Fig 3-3 (lower right panel)?</i></strong>
+      <strong><i>Can you think of a real-world example of a multivariate relationship like the one in Fig 3-3 (lower right panel)?</i></strong>
       <p>
-        We can imagine the following scenario: One of the axis shows the number of living bacterias in a medium and the other is the power of the light exposed to this bacterias. In the graph we can think that one of the bacteria types just get resistant and
+        We can imagine the following scenario: one of the axes shows the number of living bacterias in a medium and the other is the power of the light exposed to these bacteria. In the graph, we can think that one of the bacteria types just get resistant and
         even use the power of the ligth for their advantage (thus get more population) and the other type just keeps dying.
       </p>
 
       <strong><i>What are the two methods Janert metions for smoothing noisy data? Can you think of other ones?</i></strong>
       <p>
-        Two suggested techniques are Locally Weigted Regression and Splines. Even though it is rally similar to LOESS, moving average(each bin has same number of observation) and bin smoothing(each bin partition the x axis equally) are two other easy methods
-        that give idea about the data cloud.
+        Two suggested techniques are Locally Weigted Regression and Splines. Even though it is really similar to LOESS, moving average (each bin has same number of observation) and bin smoothing (each bin partitions the x axis equally) are two other easy methods
+        that give an idea about the data cloud.
       </p>
 
       <strong><i>What are residuals? Why is it a good idea to plot the residuals of your fit?</i></strong>
       <p>
-        Residuals are the remainder the trend (for example the smooth curve) is removed from the data. It is interesting to look to the residuals because it shows the data without trend. For example, if we want to learn best microprocessors of time we cannot
-        just get fastest 10 microprocessor. This is because with time microprocessors tend to get faster and faster. However, if we pick peak points in residuals than we can see what were the leading models of their time.
+        Residuals are the remainder when the trend (for example the smooth curve) is removed from the data. It is interesting to look to the residuals because it shows the data without trend. For example, if we want to learn best microprocessors of time we cannot
+        just get fastest 10 microprocessor. This is because with time microprocessors tend to get faster and faster. However, if we pick peak points in residuals than we can see what were the leading models of their time. Sometimes, an assumption of a
+        model (like <i>linear regresssion</i>) is that the residuals are normally distributed, so it is important to verify the assumption holds.
       </p>
 
       <strong><i>Explain in your own words the point of the smooth tube in figure 3-7.</i></strong>
       <p>
-        For creating a confidence zone, we create an upper bound and a lower bound for our estimated curve. It is expected that most of the data points lie inside this zone. If the band between upper and lower bound is close than we are confident of our representation.
+        For creating a confidence interval, we create an upper bound and a lower bound for our estimated curve. It is expected that most of the data points lie inside this zone. If the band between upper and lower bound is close than we are confident of our representation.
       </p>
 
       <strong><i>What kind of relationships will a semi-log plot help you discover?</i></strong>
@@ -116,32 +117,30 @@
       <strong><i>What kind of functions will loglog plots help you see?</i></strong>
 
       <p>
-        Loglog plots show power functions of the form f(x) = x^c + k. In the nature this actually can be seen often. For example Pareto distribution.
+        Loglog plots show power functions of the form f(x) = x^c + k. In nature, these type of relations are quite common, for example in a Pareto distribution.
       </p>
 
-      <strong><i>* What the h#ll is banking and what element from our visual system does it use to help us see patterns? What are potential problems with banking?</i>
+      <strong><i>What the h#ll is banking and what element from our visual system does it use to help us see patterns? What are potential problems with banking?</i>
       <p>
-        When the degree between two lines is 45, our visual system can easily recognize the difference, however whent the lines. So if when the goal is to compare the rates of change between lines different lines, an average of 45 degree is meaningful. Thus according to this we can set the ratio between axis (Ratio of the vertical and horizontal length of the graph).
+        When the angle between two lines is 45 degrees, our visual system can easily recognize the difference. So if when the goal is to compare the rates of change between different lines, an average of 45 degrees is meaningful.
+        So, we can set the ratio between axis according to this (Ratio of the vertical and horizontal length of the graph).
 
         One of the issues is that it might be hard to make the graph look neutral so that the graph won't look squished or strecthed. Sometimes it might be better to think of visualizing the data in another way, such as loglog plot etc.
 
       </p>
-      <strong><i>
-        I think figure 3-14 makes an important point about linear fits that is rarely made. What is it?
-
-      </i></strong>
+      <strong><i>I think figure 3-14 makes an important point about linear fits that is rarely made. What is it?</i></strong>
       <p>
         We plot our data on scatter plot to see if there is relation between two variables. But it does not always have to be so that the only variable affecting y is x. There might be a non-linear complex relation which includes many more variables. When we
-        run linear regression of y based on x, we find a linear function which predicts y given x. This does not always summarize the data. In figure 3.14, we see two different regression where in one y is the input in the other x is the input. As seen
-        both gives different result for the same dataset, thus regression is not a good way to summarize the data.
+        run linear regression of y based on x, we find a linear function which predicts y given x. This does not always summarize the data. In figure 3.14, we see two different regression where in one y is the input and in the other x is the input. As
+        seen both gives different result for the same dataset, thus regression is not a good way to summarize the data.
       </p>
 
-      <strong><i>* Summarize the discussion of Graphical Analysis and Presentation Graphics on pp. 68-69 in your own words.</i></strong>
+      <strong><i>Summarize the discussion of Graphical Analysis and Presentation Graphics on pp. 68-69 in your own words.</i></strong>
       <p>
-        Basically, there are two main reasons to visualize the data: 1)Investigate the data and learn more about it (Graphical Analysis) 2)Present the data to others forcommunicating the information about the data (Presentation Graphics) For the first one the
-        analyst is likely to behave like a detective and visualize the data from many angles. The analyst might not put all the labels etc. since he/she knows what the plot is about. Of course some techniques which would make it easy to read the data
-        is always helpful. On the other hand, when it comes to the presentation, it is really crucial to prepare a plot that is easily readible. Thus here font sizes, colors, length of the axes all become important. It is important to think that the data
-        will be communicated using the visualization so it is best to keep away from all frictions.
+        Basically, there are two main reasons to visualize the data: 1)Investigate the data and learn more about it (Graphical Analysis) 2) Present the data to others in order to communicate insights in the data (Presentation Graphics). For the first one, the
+        analyst is likely to behave like a detective and visualize the data from many angles. The analyst might then not put all the labels etc. since he/she knows what the plot is about. Of course some techniques which would make it easy to read the
+        data are always helpful. On the other hand, when it comes to the presentation, it is really crucial to prepare a plot that is easily readible. Thus here font sizes, colors, length of the axes all become important. It is important to think that
+        the data will be communicated using the visualization so it is best to keep away from all frictions.
       </p>
     </div>
     <div class="container">
@@ -162,7 +161,7 @@
     <script type="text/javascript">
       var h = 500;
       var w = 1000;
-      var padding = 30;
+      var padding = 50;
       var produce;
       var selectedIndex = 0;
       var names = {
@@ -173,9 +172,6 @@
       };
 
       var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-      // console.log('checked', d3.select('input[name="produce-type"]:checked').node().value);
-
 
       d3.csv('../data/produce.csv', function(err, data) {
         produce = data;
@@ -296,14 +292,33 @@
           .attr("text-anchor", "middle")
           .style('font-weight', 300)
           .text(names[selectedIndex] + " Produce per Month");
+
+        // x axis label
+        produceChart.append("text")
+          .attr("transform",
+            "translate(" + (w / 2) + " ," + h + ")")
+          .style("text-anchor", "middle")
+          .style('font-size', 14)
+          .text("Month");
+
+        // y axis label
+        produceChart.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", -2)
+          .attr("x", -(h / 2))
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .style('font-size', 14)
+          .text("Types of fruit");
       });
     </script>
 
     <div class="container">
       <h2>Part 4 </h1>
       <div style="font-weight:  300" class="button-group">
-        <input style="font-weight: 300" type="radio" name="gender" value="0" checked>Men<br>
-        <input style="font-weight: 300" type="radio" name="gender" value="1">Women<br/>
+        <input type="radio" name="gender" value="0" checked><span style="color: rgb(0, 0, 255)";>Men</span><br>
+        <input type="radio" name="gender" value="1"><span style="color: rgb(255, 0, 0)";>Women</span><br/>
+        <!-- <input type="radio" name="gender" value="2"  />Both</br> -->
       </div>
       <div class="m">
       </div>
@@ -313,18 +328,25 @@
     <script type="text/javascript">
       var marathonh= 400;
       var marathonw = 500;
-      var padding = 30;
+      var padding = 50;
       var selectedIndex = 0;
       var names1 = ["Men's", "Women's"];
       var menCoeff = 0.81909;
+      var color;
+
+      var womenColor = 'rgb(255, 0, 0)';
+      var menColor = 'rgb(0, 0, 255)';
+
       var marathon = d3.select(".m")
         .append("svg")
         .attr("width", marathonw)
         .attr("height", marathonh);
+
       var mfit = d3.select(".m")
         .append("svg")
         .attr("width", marathonw)
         .attr("height", marathonh);
+
       d3.csv("../data/marathon1.csv", function(data) {
         dataset = data;
         data.forEach(function(d) {
@@ -339,16 +361,18 @@
         });
 
         selected = men;
+        color = menColor;
 
-        //d3.select("body").append("p").text("CLICK");
         d3.selectAll('input[name="gender"]').on('change', function() {
           selectedIndex = parseInt(this.value);
           switch (selectedIndex) {
             case 0:
               selected = men;
+              color = menColor;
               break;
             case 1:
               selected = women;
+              color = womenColor;
               break;
           }
           var yScale = d3.scale.linear()
@@ -374,10 +398,6 @@
             ])
             .range([padding, marathonw - padding]);
 
-          var xAxis = d3.svg.axis()
-            .scale(xScale)
-            .orient("bottom")
-            .ticks(10);
 
           marathon.selectAll("svg > *").remove();
           mfit.selectAll("svg > *").remove();
@@ -393,7 +413,8 @@
             .attr("cy", function(d) {
               return yScale(d.time);
             })
-            .attr("r", 3);
+            .attr("r", 3)
+            .attr("fill", color);
 
 
           marathon.append("g")
@@ -412,7 +433,7 @@
             .attr("y", (padding / 2))
             .attr("text-anchor", "middle")
             .style('font-weight', 300)
-            .text(names1[selectedIndex] + " Marathon");
+            .text(names1[selectedIndex] + " Marathon Data");
 
           mfit.append("g")
             .attr("class", "axis x") //Assign "axis" class
@@ -454,7 +475,9 @@
                 .attr("cy", function(d) {
                   return yScale(d.time);
                 })
-                .attr("r", 1.5).style("color", "red");
+                .attr("r", 1.5)
+                .attr("fill", menColor);
+
             });
           } else {
             d3.csv("../data/womenPredict.csv", function(data) {
@@ -472,7 +495,8 @@
                 .attr("cy", function(d) {
                   return yScale(d.time) - 10;
                 })
-                .attr("r", 1.5).style("color", "red");
+                .attr("r", 1.5)
+                .attr("fill", womenColor);
             });
           }
 
@@ -505,7 +529,8 @@
         var xAxis = d3.svg.axis()
           .scale(xScale)
           .orient("bottom")
-          .ticks(10);
+          .ticks(10)
+          .tickFormat(d3.format("d"));
 
         var dset = [
           [5, 20],
@@ -514,7 +539,9 @@
           [11, 17]
         ];
 
-
+        // var div = marathon.append("div")
+        //   .attr("class", "tooltip")
+        //   .style("opacity", 0);
 
         marathon.selectAll("circle")
           .data(selected)
@@ -527,11 +554,13 @@
             return yScale(d.time);
           })
           .attr("r", 3)
-          .on("mouseover", function() {
+          .attr("fill", menColor)
+          .on("mouseover", function(d) {
             d3.select(this).append("title").text(function(d) {
               return d.name + " : " + d.time
             });
           });
+
 
         d3.csv("../data/fitmen.csv", function(data) {
           fitMen = data;
@@ -547,8 +576,10 @@
             .attr("cy", function(d) {
               return yScale(d.time);
             })
-            .attr("r", 1.5).style("color", "red");
+            .attr("r", 1.5)
+            .attr("fill", menColor);
         });
+
 
         marathon.append("g")
           .attr("class", "axis x") //Assign "axis" class
@@ -566,7 +597,7 @@
           .attr("y", (padding / 2))
           .attr("text-anchor", "middle")
           .style('font-weight', 300)
-          .text(names1[selectedIndex] + " Marathon");
+          .text(names1[selectedIndex] + " Marathon Data");
 
         mfit.append("g")
           .attr("class", "axis x") //Assign "axis" class
@@ -586,6 +617,41 @@
           .style('font-weight', 300)
           .text(names1[selectedIndex] + " Marathon Linear Fit");
 
+          // x axis label
+          mfit.append("text")
+            .attr("transform",
+              "translate(" + (marathonw / 2) + " ," + marathonh + ")")
+            .style("text-anchor", "middle")
+            .style('font-size', 14)
+            .text("Year");
+
+          // y axis label
+          mfit.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", -2)
+            .attr("x", -(marathonh / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .style('font-size', 14)
+            .text("Finish time (minutes)");
+
+            // x axis label
+            marathon.append("text")
+              .attr("transform",
+                "translate(" + (marathonw / 2) + " ," + marathonh + ")")
+              .style("text-anchor", "middle")
+              .style('font-size', 14)
+              .text("Year");
+
+            // y axis label
+            marathon.append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", -2)
+              .attr("x", -(marathonh / 2))
+              .attr("dy", "1em")
+              .style("text-anchor", "middle")
+              .style('font-size', 14)
+              .text("Finish time (minutes)");
 
 
       });
