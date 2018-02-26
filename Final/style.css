@@ -68,3 +68,7 @@ p {
 .m1{
 	margin-top: 20px;
 }
+
+li {
+  font-weight: 300;
+}
