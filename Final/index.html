@@ -315,7 +315,7 @@ On the other hand, when it comes to the presentation, it is really crucial to pr
 			var w = 500;
 			var padding = 30;
 			var selectedIndex = 0;
-			var names = ["Men's" , "Women's"];
+			var names1 = ["Men's" , "Women's"];
 			var menCoeff = 0.81909;
 				 var marathon = d3.select(".m")
 								 .append("svg")
@@ -401,7 +401,7 @@ On the other hand, when it comes to the presentation, it is really crucial to pr
 				.attr("y", (padding / 2))
 				.attr("text-anchor", "middle")
 				.style('font-weight', 300)
-				.text(names[selectedIndex] + " Marathon");
+				.text(names1[selectedIndex] + " Marathon");
 
 					mfit.append("g")
 				.attr("class", "axis x") //Assign "axis" class
@@ -419,7 +419,7 @@ On the other hand, when it comes to the presentation, it is really crucial to pr
 				.attr("y", (padding / 2))
 				.attr("text-anchor", "middle")
 				.style('font-weight', 300)
-				.text(names[selectedIndex] + " Marathon Linear Fit");
+				.text(names1[selectedIndex] + " Marathon Linear Fit");
 
 				marathon.selectAll('circle').on("mouseover", function()
 						{
@@ -532,7 +532,7 @@ On the other hand, when it comes to the presentation, it is really crucial to pr
 				.attr("y", (padding / 2))
 				.attr("text-anchor", "middle")
 				.style('font-weight', 300)
-				.text(names[selectedIndex] + " Marathon");
+				.text(names1[selectedIndex] + " Marathon");
 
 				mfit.append("g")
 				.attr("class", "axis x") //Assign "axis" class
@@ -550,7 +550,7 @@ On the other hand, when it comes to the presentation, it is really crucial to pr
 				.attr("y", (padding / 2))
 				.attr("text-anchor", "middle")
 				.style('font-weight', 300)
-				.text(names[selectedIndex] + " Marathon Linear Fit");
+				.text(names1[selectedIndex] + " Marathon Linear Fit");
 
 
 
