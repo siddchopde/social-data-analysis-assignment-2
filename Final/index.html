@@ -469,6 +469,42 @@
             });
           });
 
+          // x axis label
+          mfit.append("text")
+            .attr("transform",
+              "translate(" + (marathonw / 2) + " ," + marathonh + ")")
+            .style("text-anchor", "middle")
+            .style('font-size', 14)
+            .text("Year");
+
+          // y axis label
+          mfit.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", -2)
+            .attr("x", -(marathonh / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .style('font-size', 14)
+            .text("Finish time (minutes)");
+
+            // x axis label
+            marathon.append("text")
+              .attr("transform",
+                "translate(" + (marathonw / 2) + " ," + marathonh + ")")
+              .style("text-anchor", "middle")
+              .style('font-size', 14)
+              .text("Year");
+
+            // y axis label
+            marathon.append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", -2)
+              .attr("x", -(marathonh / 2))
+              .attr("dy", "1em")
+              .style("text-anchor", "middle")
+              .style('font-size', 14)
+              .text("Finish time (minutes)");
+
           if (selectedIndex == 0) {
 
             d3.csv("../data/fitmen.csv", function(data) {
