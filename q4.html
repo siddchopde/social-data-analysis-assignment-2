@@ -15,10 +15,12 @@
 		</div>
 		<div class = "m">
 		</div>
+		<div class = "m1">
+		</div>
 		</div>
 		<script type="text/javascript">	
-			var h = 500;
-			var w = 1000;
+			var h = 400;
+			var w = 500;
 			var padding = 30;
 			var selectedIndex = 0;
 			var names = ["Men's" , "Women's"];
@@ -27,6 +29,10 @@
 								 .append("svg")
 								 .attr("width",w)
 								 .attr("height",h);	
+				var mfit = d3.select(".m")
+							.append("svg")
+							.attr("width",w)
+							.attr("height",h);
 			d3.csv("../data/marathon1.csv", function(data)	{
 				dataset = data;			
 				data.forEach(function(d) {
@@ -75,7 +81,7 @@
 							  .ticks(10);
 								
 					marathon.selectAll("svg > *").remove();	
-					
+					mfit.selectAll("svg > *").remove();
 					marathon.selectAll("circle")
 						.data(selected)
 						.enter()
@@ -84,7 +90,7 @@
 						.duration(1000)
 						.attr("cx", function(d){return xScale(d.year);})
 						.attr("cy", function(d){return yScale(d.time);})
-						.attr("r",4);
+						.attr("r",3);			
 												
 					
 					marathon.append("g")
@@ -103,7 +109,25 @@
 				.attr("y", (padding / 2))
 				.attr("text-anchor", "middle")
 				.style('font-weight', 300)
-				.text(names[selectedIndex] + " Marathon");				
+				.text(names[selectedIndex] + " Marathon");	
+
+					mfit.append("g")
+				.attr("class", "axis x") //Assign "axis" class
+				.attr("transform", "translate(0," + (h - padding) + ")")
+				.call(xAxis);
+				
+				mfit.append("g")
+				.attr("class", "axis y")
+				.attr("transform", "translate(" + padding + ",0)")
+				.call(yAxis);
+				
+				mfit.append("text")
+				.attr('class', 'title')
+				.attr("x", (w / 2))
+				.attr("y", (padding / 2))
+				.attr("text-anchor", "middle")
+				.style('font-weight', 300)
+				.text(names[selectedIndex] + " Marathon Linear Fit");	
 				
 				marathon.selectAll('circle').on("mouseover", function()
 						{
@@ -112,18 +136,36 @@
 				
 				if(selectedIndex == 0)
 					{
-					console.log("FITMEN");
+					
 					d3.csv("../data/fitmen.csv",function(data)
 					{
-						fitMen = data;		
-					//d3.select('m3').data(fitMen).enter().append('circles');	
+						fitMen = data;								
+					    mfit.selectAll("circle")
+						.data(fitMen)
+						.enter()
+						.append("circle")
+						.transition()
+						.duration(1000)
+						.attr("cx", function(d){return xScale(d.year);})
+						.attr("cy", function(d){return yScale(d.time);})
+						.attr("r",1.5).style("color","red");
 					});	
 					}
 					else
 					{
-						d3.csv("../data/fitwomen.csv", function(data)
+						d3.csv("../data/womenPredict.csv", function(data)
 						{
 							fitWomen = data;
+							console.log(fitWomen);
+						mfit.selectAll("circle")
+						.data(fitWomen)
+						.enter()
+						.append("circle")
+						.transition()
+						.duration(1000)
+						.attr("cx", function(d){return xScale(d.year);})
+						.attr("cy", function(d){return yScale(d.time)-10;})
+						.attr("r",1.5).style("color", "red");
 						});
 					}
 				
@@ -162,12 +204,25 @@
 						.append("circle")
 						.attr("cx", function(d){return xScale(d.year);})
 						.attr("cy", function(d){return yScale(d.time);})
-						.attr("r",4)
+						.attr("r",3)
 						.on("mouseover", function()
 						{
 							d3.select(this).append("title").text(function(d) {return d.name + " : " + d.time});
 						});						
 							
+				d3.csv("../data/fitmen.csv",function(data)
+					{
+						fitMen = data;								
+					    mfit.selectAll("circle")
+						.data(fitMen)
+						.enter()
+						.append("circle")
+						.transition()
+						.duration(1000)
+						.attr("cx", function(d){return xScale(d.year);})
+						.attr("cy", function(d){return yScale(d.time);})
+						.attr("r",1.5).style("color","red");
+					});	
 								
 				 marathon.append("g")
 				.attr("class", "axis x") //Assign "axis" class
@@ -187,6 +242,23 @@
 				.style('font-weight', 300)
 				.text(names[selectedIndex] + " Marathon");
 				
+				mfit.append("g")
+				.attr("class", "axis x") //Assign "axis" class
+				.attr("transform", "translate(0," + (h - padding) + ")")
+				.call(xAxis);
+				
+				mfit.append("g")
+				.attr("class", "axis y")
+				.attr("transform", "translate(" + padding + ",0)")
+				.call(yAxis);
+				
+				mfit.append("text")
+				.attr('class', 'title')
+				.attr("x", (w / 2))
+				.attr("y", (padding / 2))
+				.attr("text-anchor", "middle")
+				.style('font-weight', 300)
+				.text(names[selectedIndex] + " Marathon Linear Fit");
 				
 					
 				
