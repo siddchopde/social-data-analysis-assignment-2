@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Social Data &amp; Visualizations Assignment 1</title>
+    <script type="text/javascript" src="d3/d3.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>Assignment 1</h1>
+    </div>
+    <div class="container">
+      <h2>Part 1</h2>
+      <i>Explain in your own words the point of the jitter plot.</i>
+      <p>
+        It's a way to display a series of values on a horizontal line where there is some sort of coarseness to the values. By giving all the points a vertival offset, overlapping values do not create overlapping points.
+      </p>
+      <i>Explain in your own words the point of figure 2-3.
+        (I'm going to skip saying "in your own words" going forward,
+        but I hope you get the point; I expect all answers to be in your
+        own words).
+      </i>
+      <p>
+        The figure demonstrates how a different placement of the bins around your values creates very different representations.
+      </p>
+
+      <i>The author of DAOST (Philipp Janert) likes KDEs (and think they're
+        better than histograms). And I don't. I didn't give a detailed
+        explanation in the video, but now that works to my advantage. I'll ask
+        you guys to think about this and thereby create an excellent exercise:
+         When can KDEs be misleading? (I'll provide the answer in a
+         later lecture :)
+       </i>
+      <p>
+        They suggest a continous variable to be represented, even though we are representing counts of observations which are inherently discrete.
+      </p>
+      <i>I've discussed some strengths of the CDF - there are also
+        weaknesses. Janert writes "[CDFs] have less intuitive appeal than
+        histograms of KDEs". What does he mean by that?
+      </i>
+
+      <p>
+        They are a little harder to interpret at first hand. First, you need to know what a cumulative distribution entails and second, you cannot see the the individual counts for every value instantly.
+      </p>
+
+      <i>What is a Quantile plot? What is it good for.</i>
+      <p>
+        A quantile plot is a CDF with x &amp; y interchanged. Easy to see what values correspond to a certain percentile.
+      </p>
+
+      <i>How is a Probablity plot defined? What is it useful for? Have
+        you ever seen one before?
+      </i>
+      <p>
+        A probabilty plot shows the distribution of a dataset next to a theoretical distribution in a straight line. This allows you to quickly see if your data follows a certain distribution. Seen it when examining normallity of residuals of linear regression
+        plots.
+      </p>
+
+      <i>One of the reasons I like DAOST is that Janert is so suspicious
+        of mean, median, and related summary statistics. Explain why one has
+        to be careful when using those - and why visualization of the full
+        data is always better. I love box plots. When are box plots most
+        useful?
+      </i>
+      <p>
+        Because you have to make sure the assumptions of looking at those statistics are fulfilled. Boxplots give a nice graphical representation of summary statistics and provide a good way to to outlier detection.
+      </p>
+
+      <i>The book doesn't mention violin plots. Are those better or worse
+        than box plots? Why?</i>
+      <p>
+        They provide a little more information, good for comparing distributions.
+      </p>
+    </div>
+    <div class="container">
+      <h2>Part 2</h2>
+    </div>
+    <div class="container">
+      <h2>Part 3</h2>
+      <p>
+        This is a reproduction of <a href="http://iquantny.tumblr.com/post/129373499164/this-is-quantifiably-the-best-month-to-go-to-the">this</a> blogpost.
+      </p>
+      <div style="font-weight: 300" class="button-group">
+        <input style="font-weight: 300" type="radio" name="produce-type" value="0" checked>Fruits Harvest<br>
+        <input style="font-weight: 300" type="radio" name="produce-type" value="1">Fruits Storage<br />
+        <input style="font-weight: 300" type="radio" name="produce-type" value="2">Vegetables Harvest<br />
+        <input style="font-weight: 300" type="radio" name="produce-type" value="3">Vegetables Storage<br />
+      </div>
+      <div class="produce-chart"></div>
+    </div>
+
+
+    <script type="text/javascript">
+      var h = 500;
+      var w = 1000;
+      var padding = 30;
+      var produce;
+      var selectedIndex = 0;
+      var names = {
+        0: 'Fruits Harvest',
+        1: 'Fruits Storage',
+        2: 'Vegetables Harvest',
+        3: 'Vegetables Storage',
+      };
+
+      var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+      // console.log('checked', d3.select('input[name="produce-type"]:checked').node().value);
+
+
+      d3.csv('../data/produce.csv', function(err, data) {
+        produce = data;
+        selected = produce.filter(function(el) {
+          return parseInt(el.Index) === parseInt(selectedIndex);
+        })
+
+        data.forEach(function(d) {
+          d.Count = parseInt(d.Count);
+          d.Index = parseInt(d.Index);
+        });
+
+        d3.selectAll('input[name="produce-type"]').on("change", function() {
+          selectedIndex = this.value;
+          selected = produce.filter(function(el) {
+            return parseInt(el.Index) === parseInt(selectedIndex);
+          })
+
+          var yScale = d3.scale.linear()
+            .domain([0, d3.max(selected, function(d) {
+              return parseInt(d.Count);
+            })])
+            .range([h - padding, padding]);
+
+          var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left")
+            .ticks(5);
+
+          produceChart.selectAll("rect")
+            .data(selected)
+            .transition()
+            .duration(1000)
+            .attr("x", function(d, i) {
+              return xScale(i);
+            })
+            .attr("y", function(d) {
+              return yScale(d.Count); //Height minus data value
+            })
+            .attr("fill", function(d) {
+              return "rgb(0, 0, " + 100 + ")";
+            })
+            .attr("width", xScale.rangeBand())
+            .attr("height", function(d) {
+              return h - padding - yScale(d.Count);
+            });
+
+          produceChart.selectAll("g.axis.y")
+            .attr("transform", "translate(" + padding + ",0)")
+            .call(yAxis);
+
+          produceChart.selectAll("svg text.title")
+            .text(names[selectedIndex] + " Produce per Month");
+
+        });
+
+        var xScale = d3.scale
+          .ordinal()
+          .domain(d3.range(selected.length))
+          .rangeRoundBands([padding, w - padding],
+            0.05);
+
+        var xAxis = d3.svg.axis()
+          .orient("bottom")
+          .scale(xScale)
+          .tickFormat(function(d) {
+            return months[d]
+          })
+
+        var yScale = d3.scale.linear()
+          .domain([0, d3.max(selected, function(d) {
+            return d.Count;
+          })])
+          .range([h - padding, padding]);
+
+        var yAxis = d3.svg.axis()
+          .scale(yScale)
+          .orient("left")
+          .ticks(10);
+
+        var produceChart = d3.select(".produce-chart")
+          .append("svg")
+          .attr("width", w)
+          .attr("height", h);
+
+        produceChart.selectAll("rect")
+          .data(selected)
+          .enter()
+          .append("rect")
+          .attr("x", function(d, i) {
+            return xScale(i);
+          })
+          .attr("y", function(d) {
+            return yScale(d.Count); //Height minus data value
+          })
+          .attr("fill", function(d) {
+            return "rgb(0, 0, " + 100 + ")";
+          })
+          .attr("width", xScale.rangeBand())
+          .attr("height", function(d) {
+            return h - padding - yScale(d.Count);
+          });
+
+        produceChart.append("g")
+          .attr("class", "axis x") //Assign "axis" class
+          .attr("transform", "translate(0," + (h - padding) + ")")
+          .call(xAxis);
+
+        produceChart.append("g")
+          .attr("class", "axis y")
+          .attr("transform", "translate(" + padding + ",0)")
+          .call(yAxis);
+
+        produceChart.append("text")
+          .attr('class', 'title')
+          .attr("x", (w / 2))
+          .attr("y", (padding / 2))
+          .attr("text-anchor", "middle")
+          .style('font-weight', 300)
+          .text(names[selectedIndex] + " Produce per Month");
+      });
+    </script>
+
+  </body>
+
+</html>
