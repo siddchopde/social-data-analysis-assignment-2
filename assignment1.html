@@ -232,6 +232,264 @@
           .text(names[selectedIndex] + " Produce per Month");
       });
     </script>
+	
+	<div class="container">
+		<h1 align = "center"> Question 4 </h1>
+		<div style="font-weight:  300" class = "button-group">
+			<input style="font-weight: 300" type="radio" name="gender" value="0" checked>Men<br>
+			<input style="font-weight: 300" type="radio" name="gender" value="1">Women<br/>
+		</div>
+		<div class = "m">
+		</div>
+		<div class = "m1">
+		</div>
+	</div>
+		<script type="text/javascript">	
+			var h = 400;
+			var w = 500;
+			var padding = 30;
+			var selectedIndex = 0;
+			var names = ["Men's" , "Women's"];
+			var menCoeff = 0.81909;		
+				 var marathon = d3.select(".m")
+								 .append("svg")
+								 .attr("width",w)
+								 .attr("height",h);	
+				var mfit = d3.select(".m")
+							.append("svg")
+							.attr("width",w)
+							.attr("height",h);
+			d3.csv("../data/marathon1.csv", function(data)	{
+				dataset = data;			
+				data.forEach(function(d) {
+					d.year = parseInt(d.year);
+					d.time = parseInt(d.time);
+				});				
+				men = dataset.filter(function(e1) {
+					return parseInt(e1.gender) === parseInt(0);
+				});		
+				women = dataset.filter(function(e1){
+					return parseInt(e1.gender) === parseInt(1);
+				});
+							
+				selected = men;				
+				
+				//d3.select("body").append("p").text("CLICK");
+				d3.selectAll('input[name="gender"]').on('change', function()
+				{
+					selectedIndex = parseInt(this.value);					
+					switch(selectedIndex){
+					case 0:
+						selected = men;
+						break;
+					case 1:
+						selected = women;
+						break;
+					}
+					var yScale = d3.scale.linear()
+							   .domain([d3.min(selected,function(d){return d.time})-5, d3.max(selected, function(d) {
+									return d.time;})+5])
+							   .range([h-padding,padding]);				
+				
+					var yAxis = d3.svg.axis()
+							  .scale(yScale)
+							  .orient("left")
+							  .ticks(10);
+				
+					var xScale = d3.scale.linear()
+								.domain([d3.min(selected,function(d){return d.year-3}),
+										 d3.max(selected,function(d){return d.year+3})])
+								.range([padding,w-padding]);				
+				
+					var xAxis = d3.svg.axis()
+							  .scale(xScale)
+							  .orient("bottom")
+							  .ticks(10);
+								
+					marathon.selectAll("svg > *").remove();	
+					mfit.selectAll("svg > *").remove();
+					marathon.selectAll("circle")
+						.data(selected)
+						.enter()
+						.append("circle")
+						.transition()
+						.duration(1000)
+						.attr("cx", function(d){return xScale(d.year);})
+						.attr("cy", function(d){return yScale(d.time);})
+						.attr("r",3);			
+												
+					
+					marathon.append("g")
+				.attr("class", "axis x") //Assign "axis" class
+				.attr("transform", "translate(0," + (h - padding) + ")")
+				.call(xAxis);
+				
+				marathon.append("g")
+				.attr("class", "axis y")
+				.attr("transform", "translate(" + padding + ",0)")
+				.call(yAxis);
+				
+				marathon.append("text")
+				.attr('class', 'title')
+				.attr("x", (w / 2))
+				.attr("y", (padding / 2))
+				.attr("text-anchor", "middle")
+				.style('font-weight', 300)
+				.text(names[selectedIndex] + " Marathon");	
+
+					mfit.append("g")
+				.attr("class", "axis x") //Assign "axis" class
+				.attr("transform", "translate(0," + (h - padding) + ")")
+				.call(xAxis);
+				
+				mfit.append("g")
+				.attr("class", "axis y")
+				.attr("transform", "translate(" + padding + ",0)")
+				.call(yAxis);
+				
+				mfit.append("text")
+				.attr('class', 'title')
+				.attr("x", (w / 2))
+				.attr("y", (padding / 2))
+				.attr("text-anchor", "middle")
+				.style('font-weight', 300)
+				.text(names[selectedIndex] + " Marathon Linear Fit");	
+				
+				marathon.selectAll('circle').on("mouseover", function()
+						{
+							d3.select(this).append("title").text(function(d) {return d.name + " : " + d.time});
+						});
+				
+				if(selectedIndex == 0)
+					{
+					
+					d3.csv("../data/fitmen.csv",function(data)
+					{
+						fitMen = data;								
+					    mfit.selectAll("circle")
+						.data(fitMen)
+						.enter()
+						.append("circle")
+						.transition()
+						.duration(1000)
+						.attr("cx", function(d){return xScale(d.year);})
+						.attr("cy", function(d){return yScale(d.time);})
+						.attr("r",1.5).style("color","red");
+					});	
+					}
+					else
+					{
+						d3.csv("../data/womenPredict.csv", function(data)
+						{
+							fitWomen = data;
+							console.log(fitWomen);
+						mfit.selectAll("circle")
+						.data(fitWomen)
+						.enter()
+						.append("circle")
+						.transition()
+						.duration(1000)
+						.attr("cx", function(d){return xScale(d.year);})
+						.attr("cy", function(d){return yScale(d.time)-10;})
+						.attr("r",1.5).style("color", "red");
+						});
+					}
+				
+				});
+				//console.log(d3.min(selected,function(d){return d.time}));
+				//console.log(d3.max(selected,function(d){return d.time}));
+				var yScale = d3.scale.linear()
+							   .domain([d3.min(selected,function(d){return d.time})-5, d3.max(selected, function(d) {
+									return d.time;})+5])
+							   .range([h-padding,padding]);				
+				
+				var yAxis = d3.svg.axis()
+							  .scale(yScale)
+							  .orient("left")
+							  .ticks(10);
+				
+				var xScale = d3.scale.linear()
+								.domain([d3.min(selected,function(d){return d.year-3}),
+										 d3.max(selected,function(d){return d.year+3})])
+								.range([padding,w-padding]);				
+				
+				var xAxis = d3.svg.axis()
+							  .scale(xScale)
+							  .orient("bottom")
+							  .ticks(10);
+								
+				var dset = [
+								[5,20],[10,30],[200,10],[11,17]
+						   ];
+				
+				
+
+				marathon.selectAll("circle")
+						.data(selected)
+						.enter()
+						.append("circle")
+						.attr("cx", function(d){return xScale(d.year);})
+						.attr("cy", function(d){return yScale(d.time);})
+						.attr("r",3)
+						.on("mouseover", function()
+						{
+							d3.select(this).append("title").text(function(d) {return d.name + " : " + d.time});
+						});						
+							
+				d3.csv("../data/fitmen.csv",function(data)
+					{
+						fitMen = data;								
+					    mfit.selectAll("circle")
+						.data(fitMen)
+						.enter()
+						.append("circle")
+						.transition()
+						.duration(1000)
+						.attr("cx", function(d){return xScale(d.year);})
+						.attr("cy", function(d){return yScale(d.time);})
+						.attr("r",1.5).style("color","red");
+					});	
+								
+				 marathon.append("g")
+				.attr("class", "axis x") //Assign "axis" class
+				.attr("transform", "translate(0," + (h - padding) + ")")
+				.call(xAxis);
+				
+				marathon.append("g")
+				.attr("class", "axis y")
+				.attr("transform", "translate(" + padding + ",0)")
+				.call(yAxis);
+				
+				marathon.append("text")
+				.attr('class', 'title')
+				.attr("x", (w / 2))
+				.attr("y", (padding / 2))
+				.attr("text-anchor", "middle")
+				.style('font-weight', 300)
+				.text(names[selectedIndex] + " Marathon");
+				
+				mfit.append("g")
+				.attr("class", "axis x") //Assign "axis" class
+				.attr("transform", "translate(0," + (h - padding) + ")")
+				.call(xAxis);
+				
+				mfit.append("g")
+				.attr("class", "axis y")
+				.attr("transform", "translate(" + padding + ",0)")
+				.call(yAxis);
+				
+				mfit.append("text")
+				.attr('class', 'title')
+				.attr("x", (w / 2))
+				.attr("y", (padding / 2))
+				.attr("text-anchor", "middle")
+				.style('font-weight', 300)
+				.text(names[selectedIndex] + " Marathon Linear Fit");
+				
+					
+				
+			});		
+		</script>
 
   </body>
 
